@@ -29,5 +29,6 @@ describe("plaidController", () => {
     test("user can press continue to continue to next page", async () => {
         await page.goto(appUrlBase);
         await page.waitForSelector('#link-btn');
+        await page.click("#link-btn");
     });
 });
