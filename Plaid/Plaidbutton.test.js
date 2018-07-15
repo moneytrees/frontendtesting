@@ -4,7 +4,7 @@
 
 import React from 'react';
 import { shallow, mount,render } from 'enzyme';
-import ItemCreator from '../../components/ItemCreator';
+import ItemCreator from '../../components/Plaid/ItemCreator';
 
 import Enzyme from 'enzyme';
 // adapter for enzyme

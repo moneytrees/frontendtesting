@@ -27,11 +27,16 @@ app.listen(7000, function () {
     console.log("Starting tests... ");
 });
 
+function delay(time) {
+    return new Promise(function(resolve) { 
+        setTimeout(resolve, time)
+    });
+ }
 
 // config the form url ? 
 // const appUrlBase = "http://localhost:3000/test"
 // if fails try 
-const APP = "http://127.0.0.1:3000/test"
+const APP = "http://18.232.212.14/test"
 
 //create a user account - not now 
 // define some var for puppeteer
@@ -48,7 +53,7 @@ let browser;
 beforeAll(async () => {
     browser = await puppeteer.launch({
         headless: true,
-        args: ['--disable-http2']
+        // args: ['--disable-http2']
         // slowMo: 80, 
         // args: [`--window-size=${width}, ${height}`]
     });
@@ -59,8 +64,12 @@ beforeAll(async () => {
 describe("plaidController", () => {
     test("user can press continue to continue to next page", async () => {
         await page.goto(APP);
-        await page.waitForSelector('#link-btn');
-        await page.click("#link-btn");
+         await page.waitForSelector('#foo button');
+       // jest.setTimeout(30000);
+        await page.click("#foo button"); 
+        //await delay(4000);
+        // await page.waitForSelector('.Button Button--is-plaid-color')
+        // .then(() => console.log("Hey there, you did it"));
         // await page.click('#plaid-link-iframe-1 .PrivacyInterstitialPane__actions button');
         // await page.click('#plaid-link-iframe-1 .InstitutionSelectPane__institution-list li[data-institution="chase"]');
         // await page.keyboard.type('#plaid-link-container #username', 'user_good', {delay: 3});
@@ -71,6 +80,21 @@ describe("plaidController", () => {
         // await page.click('#plaid-link-iframe-container .ConnectedPane button[type="submit"]');
     });
 });
+
+// describe("plaidController", () => {
+//     test("press continue button and message", async () => {
+//         await page.waitForSelector('.Button')
+//         .then(() => console.log("Hey there, you did it"));
+//         // await page.click('#plaid-link-iframe-1 .PrivacyInterstitialPane__actions button');
+//         // await page.click('#plaid-link-iframe-1 .InstitutionSelectPane__institution-list li[data-institution="chase"]');
+//         // await page.keyboard.type('#plaid-link-container #username', 'user_good', {delay: 3});
+//         // await page.keyboard.type('#plaid-link-container #password', 'pass_good', {delay: 3});
+//         // await page.click('#plaid-link-iframe-container .CredentialPane button[type="submit"]');
+//         // const label = await page.$eval( '#plaid-link-iframe-container .ConnectedPane button[type="submit"]', e => e.text());
+//         // expect(label).toBe('Continue');
+//         // await page.click('#plaid-link-iframe-container .ConnectedPane button[type="submit"]');
+//     });
+// });
 afterAll(()=> {
     browser.close();
 });
