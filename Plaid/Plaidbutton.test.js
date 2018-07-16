@@ -1,6 +1,29 @@
-// Ensuring plaid renders 
-// Button for plaid renders on screen upon load 
+// Ensuring plaid button renders upon screen load 
 
+// created mock localStorage 
+class LocalStorageMock {
+    constructor() {
+      this.store = {};
+    }
+  
+    clear() {
+      this.store = {};
+    }
+  
+    getItem(key) {
+      return this.store[key] || null;
+    }
+  
+    setItem(key, value) {
+      this.store[key] = value.toString();
+    }
+  
+    removeItem(key) {
+      delete this.store[key];
+    }
+  };
+  
+  global.localStorage = new LocalStorageMock;
 
 import React from 'react';
 import { shallow, mount,render } from 'enzyme';
@@ -17,7 +40,7 @@ Enzyme.configure({ adapter: new Adapter() });
 //button for plaid renders upon loading with no errors
 describe('ItemCreator Component', () => {
     it('should render without throwing an error', () => {
-        expect(shallow( < ItemCreator /> ).find('#foo button').exists())
+        expect(shallow( < ItemCreator /> ).find('#foo').exists())
     });
 });
 
